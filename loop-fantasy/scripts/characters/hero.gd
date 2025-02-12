@@ -25,8 +25,9 @@ func _ready():
     collision.shape = rectangle
     add_child(collision)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
     check_combat()
+    check_tile_effects()
 
 func check_combat() -> void:
     for i in get_slide_collision_count():
@@ -41,6 +42,14 @@ func check_combat() -> void:
             
             if collider.stats.health <= 0:
                 gain_experience(collider.stats.experience_value)
+
+func check_tile_effects():
+    var tiles = get_tree().get_nodes_in_group("path_tiles")
+    for tile in tiles:
+        if tile is PathTile:
+            var distance = position.distance_to(tile.position)
+            if distance < 32:  # Half tile size
+                tile.apply_effects(self)
 
 func take_damage(amount: int):
     stats.health = max(0, stats.health - amount)
