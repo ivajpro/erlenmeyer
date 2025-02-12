@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://du2d3rfo1imes"]
+[gd_scene load_steps=3 format=3 uid="uid://co7uuqur7wwj3"]
 
 [ext_resource type="Script" path="res://scripts/core/loop_manager.gd" id="1_loop_manager"]
+[ext_resource type="PackedScene" uid="uid://cu1a5b7sovjuj" path="res://scenes/ui/hud.tscn" id="2_hud"]
 
 [node name="GameLoop" type="Node2D"]
 script = ExtResource("1_loop_manager")
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
