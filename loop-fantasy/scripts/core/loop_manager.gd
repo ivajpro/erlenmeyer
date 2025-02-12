@@ -16,11 +16,17 @@ var enemy_scene = preload("res://scenes/characters/enemy.tscn")
 var tile_scene = preload("res://scenes/tiles/path_tile.tscn")
 var spawn_timer: float = 0
 const SPAWN_INTERVAL: float = 3.0
+var hand_manager: HandManager
 
 func _ready():
     draw_loop_path()
     spawn_hero()
     _create_path_tiles()
+    _setup_hand_manager()
+
+func _setup_hand_manager():
+    hand_manager = HandManager.new()
+    add_child(hand_manager)
 
 func _create_path_tiles():
     for i in range(LOOP_PATH_POINTS.size()):
@@ -90,3 +96,12 @@ func spawn_enemy() -> void:
     var spawn_point = LOOP_PATH_POINTS[randi() % LOOP_PATH_POINTS.size()]
     enemy.position = spawn_point
     add_child(enemy)
+
+func try_place_tile(tile_type: String, position: Vector2):
+    var grid_pos = _snap_to_grid(position)
+    if not placed_tiles.has(grid_pos):
+        var tile = tile_scene.instantiate()
+        tile.position = grid_pos
+        tile.tile_type = tile_type
+        add_child(tile)
+        placed_tiles[grid_pos] = tile
