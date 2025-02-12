@@ -3,14 +3,27 @@ class_name HandManager
 
 # Add this line at the top to ensure Card class is loaded
 const CardScene = preload("res://scripts/cards/card.gd")
+const AbilityData = preload("res://scripts/cards/ability_data.gd")
 
 var card_scene = preload("res://scenes/cards/card.tscn")
 var max_cards: int = 5
 var cards: Array = []
 var card_types = ["basic", "healing", "damage", "speed"]
+var ability_pool = ["slash", "shield", "heal", "sprint"]
 var selected_card: Card = null
 
 func _ready():
+	# Create card area background
+	var card_area = Panel.new()
+	card_area.name = "CardArea"
+	card_area.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	card_area.custom_minimum_size = Vector2(0, 200)
+	
+	# Fix the get_stylebox call by providing both required arguments
+	var theme = load("res://resources/ui_theme.tres")
+	card_area.add_theme_stylebox_override("panel", theme.get_stylebox("CardArea", "Panel"))
+	add_child(card_area)
+	
 	draw_initial_hand()
 
 func draw_initial_hand():
@@ -23,15 +36,22 @@ func draw_card():
 		
 	var card: Card = card_scene.instantiate() as Card
 	if card:
-		 # Calculate card positions to center them at bottom
+		var ability_id = ability_pool[randi() % ability_pool.size()]
+		var ability = AbilityData.ABILITIES[ability_id]
+		
+		card.ability_type = ability.type
+		card.card_name = ability.name
+		card.description = ability.description
+		card.mana_cost = ability.mana_cost
+		card.cooldown = ability.cooldown
+		
+		# Position cards well below the loop area
 		var viewport_size = get_viewport_rect().size
 		var total_width = (cards.size() + 1) * 120  # 120 is card spacing
 		var start_x = (viewport_size.x - total_width) / 2
 		var card_x = start_x + (120 * cards.size())
-		var card_y = viewport_size.y - 150  # 150 pixels from bottom
+		var card_y = viewport_size.y - 200  # Place cards 200 pixels from bottom
 		
-		card.tile_type = card_types[randi() % card_types.size()]
-		card.card_name = card.tile_type.capitalize() + " Tile"
 		card.position = Vector2(card_x, card_y)
 		
 		# Connect signals using new syntax

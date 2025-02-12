@@ -1,13 +1,13 @@
 extends Node2D
 
 const LOOP_PATH_POINTS = [
-	Vector2(100, 100),
-	Vector2(500, 100),
-	Vector2(500, 400),
-	Vector2(100, 400)
+	Vector2(300, 100),   # Top left - Moved up
+	Vector2(900, 100),   # Top right - Moved up
+	Vector2(900, 400),   # Bottom right - Moved up
+	Vector2(300, 400)    # Bottom left - Moved up
 ]
 
-const TILE_SIZE = 64
+const TILE_SIZE = 128  # Increased from 96
 var placed_tiles = {}  # Dictionary to store placed tiles
 var current_point_index: int = 0
 var hero_node: CharacterBody2D
