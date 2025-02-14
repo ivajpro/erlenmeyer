@@ -1,18 +1,4 @@
-[gd_resource type="Theme" load_steps=2 format=3]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.12, 0.12, 0.18, 0.95)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.3, 0.3, 0.4, 1.0)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.3)
-shadow_size = 4
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c6unnpv0h16ay"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_area"]
 bg_color = Color(0.15, 0.15, 0.2, 0.9)
@@ -20,11 +6,25 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.4, 0.5, 1.0)
+border_color = Color(0.4, 0.4, 0.5, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
-expand_margin_top = 10
+expand_margin_top = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.12, 0.12, 0.18, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
 
 [resource]
-Panel/styles/panel = SubResource("StyleBoxFlat_panel")
 CardArea/styles/normal = SubResource("StyleBoxFlat_card_area")
+Panel/styles/panel = SubResource("StyleBoxFlat_panel")

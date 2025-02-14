@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://co7uuqur7wwj3"]
 
 [ext_resource type="Script" path="res://scripts/core/loop_manager.gd" id="1_loop_manager"]
-[ext_resource type="PackedScene" uid="uid://cu1a5b7sovjuj" path="res://scenes/ui/hud.tscn" id="2_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="2_hud"]
 [ext_resource type="PackedScene" uid="uid://csiwhyruuv6nw" path="res://scenes/ui/action_menu.tscn" id="3_3sfbr"]
 
 [node name="GameLoop" type="Node2D"]

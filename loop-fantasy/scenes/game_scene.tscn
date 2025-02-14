@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkhs7qhv36hu1"]
+
+[ext_resource type="PackedScene" path="res://scenes/characters/hero.tscn" id="1_1v0vj"]
+[ext_resource type="Script" path="res://scenes/game_scene.gd" id="1_duxuu"]
+[ext_resource type="PackedScene" uid="uid://qtyhhn8pstui" path="res://scenes/characters/enemy.tscn" id="2_3jogj"]
+[ext_resource type="PackedScene" uid="uid://co7uuqur7wwj3" path="res://scenes/levels/game_loop.tscn" id="3_phojg"]
+[ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="5_hpcy1"]
+[ext_resource type="Script" path="res://scripts/ui/hand_manager.gd" id="5_wybc8"]
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_duxuu")
+
+[node name="WorldContent" type="Node2D" parent="."]
+
+[node name="Hero" parent="WorldContent" instance=ExtResource("1_1v0vj")]
+
+[node name="Enemy" parent="WorldContent" instance=ExtResource("2_3jogj")]
+
+[node name="GameLoop" parent="WorldContent" instance=ExtResource("3_phojg")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameHUD" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_hpcy1")
+
+[node name="StatsContainer" type="MarginContainer" parent="UI/GameHUD"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HPBar" type="ProgressBar" parent="UI/GameHUD/StatsContainer"]
+layout_mode = 2
+
+[node name="ManaBar" type="ProgressBar" parent="UI/GameHUD/StatsContainer"]
+layout_mode = 2
+
+[node name="HandArea" type="Control" parent="UI/GameHUD"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="Panel" parent="UI/GameHUD/HandArea"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HandManager" type="Node2D" parent="UI"]
+script = ExtResource("5_wybc8")

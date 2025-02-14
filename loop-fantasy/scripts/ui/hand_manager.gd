@@ -11,18 +11,15 @@ var cards: Array = []
 var card_types = ["basic", "healing", "damage", "speed"]
 var ability_pool = ["slash", "shield", "heal", "sprint"]
 var selected_card: Card = null
+var card_base_height: float = 0.0
 
 func _ready():
-	# Create card area background
-	var card_area = Panel.new()
-	card_area.name = "CardArea"
-	card_area.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	card_area.custom_minimum_size = Vector2(0, 200)
-	
-	# Fix the get_stylebox call by providing both required arguments
-	var theme = load("res://resources/ui_theme.tres")
-	card_area.add_theme_stylebox_override("panel", theme.get_stylebox("CardArea", "Panel"))
-	add_child(card_area)
+	# Get reference to hand area for proper card positioning
+	var hand_area = get_node("../GameHUD/HandArea")
+	if hand_area:
+		# Position cards relative to hand area
+		var area_rect = hand_area.get_rect()
+		card_base_height = area_rect.position.y + 50  # 50px from top of hand area
 	
 	draw_initial_hand()
 
@@ -33,7 +30,7 @@ func draw_initial_hand():
 func draw_card():
 	if cards.size() >= max_cards:
 		return
-		
+	
 	var card: Card = card_scene.instantiate() as Card
 	if card:
 		var ability_id = ability_pool[randi() % ability_pool.size()]
@@ -50,7 +47,7 @@ func draw_card():
 		var total_width = (cards.size() + 1) * 120  # 120 is card spacing
 		var start_x = (viewport_size.x - total_width) / 2
 		var card_x = start_x + (120 * cards.size())
-		var card_y = viewport_size.y - 200  # Place cards 200 pixels from bottom
+		var card_y = viewport_size.y - 150  # Adjusted to fit in hand area
 		
 		card.position = Vector2(card_x, card_y)
 		
